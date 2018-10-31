@@ -6,8 +6,8 @@ Show the first name and the email address of customer with CompanyName 'Bike Wor
 
 SELECT 
 	FirstName, 
-    EmailAddress, 
-    CompanyName
+   	EmailAddress, 
+    	CompanyName
 FROM 
 	Customer
 WHERE 
@@ -18,7 +18,7 @@ Show the CompanyName for all customers with an address in City 'Dallas'. */
 
 SELECT DISTINCT 
 	c.CompanyName, 
-    a.City
+    	a.City
 FROM 
 	Customer c
 	INNER JOIN 
@@ -49,10 +49,10 @@ Include the subtotal plus tax plus freight. */
 
 SELECT 
 	c.CompanyName,
-    (soh.SubTotal +  soh.TaxAmt +  soh.Freight) AS Total, 
-    soh.SubTotal, 
-    soh.TaxAmt, 
-    soh.Freight
+    	(soh.SubTotal +  soh.TaxAmt +  soh.Freight) AS Total, 
+    	soh.SubTotal, 
+    	soh.TaxAmt, 
+    	soh.Freight
 FROM 
 	SalesOrderHeader soh
 	INNER JOIN
