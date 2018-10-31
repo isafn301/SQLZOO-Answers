@@ -7,22 +7,22 @@ on the evening? Show the last name and both first names. Do not include duplicat
 
 SELECT DISTINCT 
 	a.last_name,
-    a.first_name, 
-    b.first_name
+    	a.first_name, 
+    	b.first_name
 FROM
 	(SELECT *
 		FROM 
 			booking
 			INNER JOIN
 				guest 
-			ON guest.id = booking.guest_id
+				ON guest.id = booking.guest_id
 	) a, 
 	(SELECT *
 		FROM 
 			booking
 		INNER JOIN
 			guest 
-		ON guest.id = booking.guest_id
+			ON guest.id = booking.guest_id
 	) b
     
 WHERE 
@@ -48,7 +48,7 @@ FROM
 	booking
 WHERE 
 	(booking_date + INTERVAL nights DAY) BETWEEN '2016-11-14'
-    AND ('2016-11-14' + INTERVAL 6 DAY)
+    	AND ('2016-11-14' + INTERVAL 6 DAY)
 GROUP BY check_out, weekday
 ORDER BY check_out;
 
@@ -59,14 +59,14 @@ You may find the table calendar useful for this query. */
 
 SELECT 
 	c.i AS date,
-    CASE WHEN g.last_name IS NULL THEN 'EMPTY' ELSE g.last_name END AS last_name
+    	CASE WHEN g.last_name IS NULL THEN 'EMPTY' ELSE g.last_name END AS last_name
 FROM 
 	calendar c
 	LEFT JOIN
 		booking b
 		ON b.booking_date <= c.i
-        AND (b.booking_date + INTERVAL b.nights DAY)>c.i
-        AND b.room_no =207
+        	AND (b.booking_date + INTERVAL b.nights DAY)>c.i
+        	AND b.room_no =207
 	LEFT JOIN 
 		guest g
 		ON g.id = b.guest_id
@@ -83,13 +83,13 @@ Show the date and room number for the first such availabilities. */
 SET @row_number1 := 0;
 SELECT 
 	MIN(xx.i-INTERVAL xx.nights_empty -1  DAY) AS date,
-    xx.room_no
+    	xx.room_no
 	FROM (
 		SELECT 
 			x.i,
-            x.room_no,
-            x.booking_date,
-            x.prev_room,
+           	 	x.room_no,
+            		x.booking_date,
+            		x.prev_room,
 			@row_number1 := CASE
 				WHEN x.booking_date IS NULL AND x.prev_room = x.room_no 
 					THEN @row_number1 +1
@@ -104,14 +104,14 @@ SELECT
 			SELECT
 				a.i,
 				a.room_no,
-                b.booking_date,
+                		b.booking_date,
 				LAG(a.room_no) OVER (ORDER BY a.room_no, a.i) AS prev_room
                 #Save the previous room number
 
 			FROM (
 				SELECT
 					c.i,
-                    r.id as room_no
+                    			r.id as room_no
 				FROM
 					calendar c
 					CROSS JOIN room r 
@@ -139,7 +139,7 @@ the previous Friday to that day, inclusive. */
 
 SELECT 
 	t.next_thurs, 
-    SUM(t.total_amount) AS week_amount
+    	SUM(t.total_amount) AS week_amount
     
 FROM (
 	SELECT 
@@ -155,14 +155,13 @@ FROM (
 			WHEN e.extra_amount IS NULL THEN r.amount*b.nights
 			ELSE (r.amount*b.nights + e.extra_amount)
 		END AS total_amount,
-		#Look for the next Thursday (hence the 5)
-        CASE 
+        	CASE 
 			#For Sun (1) to Thurs (5)
-            WHEN (5 - DAYOFWEEK(b.booking_date + INTERVAL b.nights DAY)) >= 0 
+        		WHEN (5 - DAYOFWEEK(b.booking_date + INTERVAL b.nights DAY)) >= 0 
 				THEN (b.booking_date + INTERVAL b.nights DAY) + INTERVAL (5 - DAYOFWEEK(b.booking_date + INTERVAL b.nights DAY)) DAY
 			#For Fri (6) and Sat (7)
-            ELSE (b.booking_date + INTERVAL b.nights DAY) + INTERVAL (12 - DAYOFWEEK(b.booking_date + INTERVAL b.nights DAY)) DAY
-		END AS next_thurs
+            		ELSE (b.booking_date + INTERVAL b.nights DAY) + INTERVAL (12 - DAYOFWEEK(b.booking_date + INTERVAL b.nights DAY)) DAY
+		END AS next_thurs #Look for the next Thursday (hence the 5)
 	FROM
 		booking b
 		INNER JOIN
