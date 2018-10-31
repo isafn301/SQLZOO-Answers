@@ -9,14 +9,14 @@ of the 'Main Office' and AddressLine1 of the 'Shipping' address
 SELECT 
 	c.CompanyName, 
 	c.CustomerID,  
-    AddressLine1 AS MainOffice,
+    	AddressLine1 AS MainOffice,
 	(SELECT 
 		a2.AddressLine1 
 	FROM
 		Address a2 
         INNER JOIN 
-			CustomerAddress ca2 
-		    ON a2.AddressID = ca2.AddressID
+		CustomerAddress ca2 
+		ON a2.AddressID = ca2.AddressID
 	WHERE 
 		ca2.CustomerID = c.CustomerID
 		AND ca2.AddressType = 'Shipping')  AS Shipping
@@ -38,8 +38,8 @@ C) Sum of OrderQty*ListPrice */
 
 SELECT 
 	soh.SalesOrderID, 
-    soh.SubTotal AS SubTotal_A, 
-    SUM(sod.OrderQty*sod.UnitPrice) AS SubTotal_B,
+    	soh.SubTotal AS SubTotal_A, 
+    	SUM(sod.OrderQty*sod.UnitPrice) AS SubTotal_B,
 	SUM(sod.OrderQty*p.ListPrice)  AS SubTotal_C
     
 FROM 
@@ -58,9 +58,9 @@ Show the best selling item by value. */
 
 SELECT 
 	p.ProductID, 
-    p.Name, 
-    SUM(sod.OrderQty) AS TotalSales, 
-    SUM(sod.OrderQty*sod.UnitPrice) AS TotalSalesValue
+    	p.Name, 
+    	SUM(sod.OrderQty) AS TotalSales, 
+    	SUM(sod.OrderQty*sod.UnitPrice) AS TotalSalesValue
     
 FROM 
 	Product p
@@ -82,8 +82,8 @@ Show how many orders are in the following ranges (in $):
 
 SELECT 
 	r.Range, 
-    COUNT(r.SubTotal) AS 'Num Orders', 
-    SUM(r.SubTotal) AS 'Total Value'
+    	COUNT(r.SubTotal) AS 'Num Orders', 
+    	SUM(r.SubTotal) AS 'Total Value'
 
 FROM (
 	SELECT 
@@ -107,13 +107,13 @@ top level product category against city. */
 
 SELECT 
 	a.City, 
-    pc.Name AS Category, 
-    SUM(sod.OrderQty*sod.UnitPrice) AS Total
+    	pc.Name AS Category, 
+    	SUM(sod.OrderQty*sod.UnitPrice) AS Total
     
 FROM (
 	SELECT 
 		a.City, 
-        SUM(soh.SubTotal) AS CityTotal
+        	SUM(soh.SubTotal) AS CityTotal
 	FROM 
 		Address a
 		INNER JOIN 
