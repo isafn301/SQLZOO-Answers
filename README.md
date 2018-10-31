@@ -1,2 +1,2 @@
 # SQLZOO-Answers
-Answers to the assessments on SQLZOO
+My answers to the assessments on SQLZOO (http://sqlzoo.net/)
