@@ -15,15 +15,15 @@ FROM
 
 WHERE 
 	c.CompanyName = 'Good Toys' 
-    OR c.CompanyName = 'Bike World';
+    	OR c.CompanyName = 'Bike World';
 
 /* QUESTION 2
 List the ProductName and the quantity of what was ordered by 'Futuristic Bikes' */
 
 SELECT 
 	c.CompanyName, 
-    p.Name, 
-    sod.OrderQty
+    	p.Name, 
+    	sod.OrderQty
 
 FROM 
 	Customer c
@@ -47,13 +47,13 @@ Ensure that the 'bike's are listed before the 'cycles's. */
 
 SELECT 
 	c.CompanyName, 
-    ca.AddressType, 
-    a.AddressLine1, 
-    a.AddressLine2, 
-    a.City, 
-    a.StateProvince, 
-    a.CountyRegion AS CountryRegion, 
-    a.PostalCode
+    	ca.AddressType, 
+    	a.AddressLine1, 
+    	a.AddressLine2, 
+    	a.City, 
+    	a.StateProvince, 
+    	a.CountyRegion AS CountryRegion, 
+    	a.PostalCode
 
 FROM 
 	Customer c
@@ -71,13 +71,13 @@ UNION
 
 SELECT 
 	c2.CompanyName, 
-    ca2.AddressType, 
-    a2.AddressLine1, 
-    a2.AddressLine2, 
-    a2.City, 
-    a2.StateProvince, 
-    a2.CountyRegion AS CountryRegion, 
-    a2.PostalCode
+    	ca2.AddressType, 
+    	a2.AddressLine1, 
+    	a2.AddressLine2, 
+    	a2.City, 
+    	a2.StateProvince, 
+    	a2.CountyRegion AS CountryRegion, 
+    	a2.PostalCode
 
 FROM 
 	Customer c2
@@ -96,7 +96,7 @@ Show the total order value for each CountryRegion. List by value with the highes
 
 SELECT 
 	a.CountyRegion AS CountryRegion, 
-    SUM(soh.SubTotal) AS Total
+    	SUM(soh.SubTotal) AS Total
 
 FROM 
 	Address a
@@ -112,14 +112,14 @@ Find the best customer in each region. */
 
 SELECT 
 	t.CompanyName, 
-    t.CountryRegion, 
-    t.Total
+    	t.CountryRegion, 
+    	t.Total
 
 FROM (
 	SELECT 
 		c.CompanyName, 
-        a.CountyRegion AS CountryRegion, 
-        SUM(soh.SubTotal) AS Total
+        	a.CountyRegion AS CountryRegion, 
+        	SUM(soh.SubTotal) AS Total
         
 	FROM 
 		Address a
@@ -136,13 +136,13 @@ FROM (
 	INNER JOIN (
 		SELECT 
 			r.CountryRegion, 
-            MAX(r.Total) AS MaxRegion
+            		MAX(r.Total) AS MaxRegion
             
 		FROM (
 			SELECT 
 				c.CompanyName, 
-                a.CountyRegion AS CountryRegion, 
-                SUM(soh.SubTotal) AS Total
+                		a.CountyRegion AS CountryRegion, 
+                		SUM(soh.SubTotal) AS Total
 			
             FROM 
 				Address a
