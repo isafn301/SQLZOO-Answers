@@ -8,15 +8,15 @@ Ruth Cadbury. Show the total amount payable by guest Ruth Cadbury
 
 SELECT
 	g.first_name,
-    g.last_name,
-    SUM(a.nights*a.amount) as total_amount
+    	g.last_name,
+    	SUM(a.nights*a.amount) as total_amount
 FROM
 	(SELECT
 		b.guest_id,
 		b.room_type_requested,
-        b.occupants,
-        b.nights,
-        r.amount
+        	b.occupants,
+        	b.nights,
+        	r.amount
 	FROM
 		booking b
 		INNER JOIN
@@ -41,24 +41,23 @@ Including Extras. Calculate the total bill for booking 5128 including extras. */
 
 SELECT
 	booking_id,	
-    SUM(amount) as total_amount
+    	SUM(amount) as total_amount
 FROM(
 	(SELECT
 		b.booking_id,
 		b.nights*r.amount as amount
 	FROM
 		booking b
-	INNER JOIN
-		rate r
-	ON 
-		b.room_type_requested = r.room_type 
-		AND b.occupants = r.occupancy)
+		INNER JOIN
+			rate r
+			ON b.room_type_requested = r.room_type 
+			AND b.occupants = r.occupancy)
 
 	UNION ALL
 
 	(SELECT
 		booking_id,
-        SUM(amount)
+        	SUM(amount)
 	FROM 
 		extra
 	GROUP BY booking_id)
@@ -75,8 +74,8 @@ address and number of nights. Order by last name then first name. */
 
 SELECT 
 	g.first_name,
-    g.last_name,
-    g.address, 
+    	g.last_name,
+    	g.address, 
 	CASE
 		WHEN SUM(b.nights) IS NULL THEN 0
 		ELSE SUM(b.nights)
@@ -85,7 +84,7 @@ FROM
 	guest g
 	LEFT JOIN
 		booking b
-	ON b.guest_id = g.id
+		ON b.guest_id = g.id
 WHERE
 	address LIKE '%Edinburgh%'
 GROUP BY g.first_name, g.last_name, g.address
@@ -97,8 +96,8 @@ show the number of people who are arriving that day. */
 
 SELECT 
 	booking_date, 
-    DATE_FORMAT(booking_date, '%W') AS weekday,
-    COUNT(booking_id) AS arrivals
+    	DATE_FORMAT(booking_date, '%W') AS weekday,
+    	COUNT(booking_id) AS arrivals
 FROM
 	booking
 WHERE 
@@ -118,4 +117,4 @@ FROM
 	booking
 WHERE
 	booking_date <= '2016-11-21'
-    AND (booking_date + INTERVAL nights DAY)>'2016-11-21';
+    	AND (booking_date + INTERVAL nights DAY)>'2016-11-21';
