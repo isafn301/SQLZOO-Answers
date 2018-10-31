@@ -7,7 +7,7 @@ Show the SalesOrderID and the UnitPrice for every Single Item Order. */
 
 SELECT 
 	SalesOrderID, 
-    UnitPrice
+    	UnitPrice
 FROM 
 	SalesOrderDetail
 WHERE 
@@ -19,7 +19,7 @@ all Customers who ordered ProductModel 'Racing Socks'. */
 
 SELECT 
 	c.CompanyName, 
-    p.Name
+    	p.Name
     
 FROM 
 	Customer c
@@ -47,8 +47,8 @@ Show the product description for culture 'fr' for product with ProductID 736. */
 SELECT 
 	p.ProductID, 
 	p.Name, 
-    pd.Description, 
-    pmpd.Culture
+    	pd.Description, 
+    	pmpd.Culture
     
 FROM 
 	Product p
@@ -64,7 +64,7 @@ FROM
 
 WHERE 
 	p.ProductID = 736 
-    AND pmpd.Culture = 'fr';
+    	AND pmpd.Culture = 'fr';
     
 /* QUESTION 9
 Use the SubTotal value in SaleOrderHeader to list orders from the 
@@ -73,8 +73,8 @@ SubTotal and the total weight of the order. */
 
 SELECT 
 	c.CompanyName, 
-    soh.SubTotal, 
-    SUM(sod.OrderQty*p.Weight) AS Weight
+    	soh.SubTotal, 
+    	SUM(sod.OrderQty*p.Weight) AS Weight
     
 FROM 
 	Customer c
